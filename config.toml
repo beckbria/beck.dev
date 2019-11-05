@@ -1,6 +1,6 @@
 baseurl = "https://beck.dev"
 DefaultContentLanguage = "en"
-title = "Grumpy Fortunes"
+title = "Signal Fragments"
 theme = "beautifulhugo"
 metaDataFormat = "yaml"
 pygmentsStyle = "trac"
@@ -9,9 +9,8 @@ pygmentsCodeFences = true
 pygmentsCodefencesGuessSyntax = true
 
 [Params]
-#  homeTitle = "Beautiful Hugo Theme" # Set a different text for the header on the home page
   subtitle = "Programming, Puzzles, and Peculiarities"
-  logo = "img/avatar-icon.png" # Expecting square dimensions
+  logo = "img/logo.jpg" # Expecting square dimensions
   favicon = "img/favicon.ico"
   dateFormat = "January 2, 2006"
   commit = false
@@ -26,7 +25,6 @@ pygmentsCodefencesGuessSyntax = true
 
 [[Params.bigimg]]
   src = "img/path2.jpg"
-  #desc = "Triangle"
 
 [Author]
   name = "Brian Beck"
