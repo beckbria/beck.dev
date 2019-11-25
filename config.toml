@@ -11,6 +11,7 @@ pygmentsCodefencesGuessSyntax = true
 [Params]
   subtitle = "Programming, Puzzles, and Peculiarities"
   logo = "img/logo.jpg" # Expecting square dimensions
+  mainSections = ["post","posts"]
   favicon = "img/favicon.ico"
   dateFormat = "January 2, 2006"
   commit = false
@@ -29,7 +30,6 @@ pygmentsCodefencesGuessSyntax = true
 [Author]
   name = "Brian Beck"
   website = "beck.dev"
-  email = "brian@beck.dev"
   github = "beckbria"
   linkedin = "brian-beck-95624413"
 
