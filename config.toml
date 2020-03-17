@@ -29,7 +29,7 @@ pygmentsCodefencesGuessSyntax = true
 
 [Author]
   name = "Brian Beck"
-  website = "beck.dev"
+  #website = "beck.dev"
   github = "beckbria"
   linkedin = "brian-beck-95624413"
 
