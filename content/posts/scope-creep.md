@@ -2,13 +2,14 @@
 title: "Scope Creep"
 date: 2020-03-14T17:18:46-07:00
 draft: false
+tags: ["Software", "Woodworking", "Project Management"]
 ---
 
 I have a brand new home office setup.  This all started when I planned to build a bed - a bed that doesn't exist and that won't be finished any time soon.  How did things come to this?
 
 ![My home office setup](/img/office-new.jpg)
 
-It was a serious of small changes, each of which seemed reasonable at the time:
+It was a series of small changes, each of which seemed reasonable at the time:
 
 1. Back in December, I started planning to build [a bed](http://go.rockler.com/tech/queen-size-deluxe-murphy-bed-plan.pdf).  I ordered the hardware but not the wood (more on that later).
 

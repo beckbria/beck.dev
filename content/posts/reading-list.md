@@ -2,6 +2,7 @@
 title: "Reading List"
 date: 2020-01-14T00:45:53-07:00
 draft: false
+tags: ["Books"]
 ---
 
 This is a list of some books I've enjoyed or found useful, grouped roughly by subject.  It is by no means conclusive.  This list was most recently updated on March 15, 2020.

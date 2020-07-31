@@ -2,6 +2,7 @@
 title: "The Importance of \"No\""
 date: 2019-11-24T22:57:57-08:00
 draft: false
+tags: ["Career", "Software"]
 ---
 A tremendous amount of time, money, and effort goes towards training people how to get software jobs.  Once someone has been hired, however, too often they are left on their own.  Good workplaces pair new engineers with mentors (and if the new hire is fortunate enough to be paired with someone passionate about mentoring, the results can be good).  For those who know where to look there are a [number](http://www.effectiveengineer.com/) of [good](http://shop.oreilly.com/product/0636920042372.do) [books](https://www.oreilly.com/library/view/peopleware-productive-projects/9780133440706/) which can help, but for the rest there are a number of lessons that are usually learned the hard way.
 
