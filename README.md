@@ -18,3 +18,17 @@ Then open the site in a browser - by default at [localhost:1313](http://localhos
 ```
 hugo new posts/post-name.md
 ```
+
+## Deploying
+
+Build the new content:
+
+```
+hugo
+```
+
+Sync it to the server:
+
+```
+./upload.sh
+```
