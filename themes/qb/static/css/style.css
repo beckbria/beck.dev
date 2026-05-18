@@ -1,0 +1,195 @@
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono&display=swap');
+
+:root {
+  --ide-bg: #0000A8;
+  --ide-fg: #FFFFFF;
+  --menu-bg: #A8A8A8;
+  --menu-fg: #000000;
+  --menu-hover-bg: #000000;
+  --menu-hover-fg: #FFFFFF;
+  --highlight: #FFFFFF;
+  --status-fg: #55FFFF;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body, html {
+  height: 100%;
+  width: 100%;
+  overflow: hidden; /* Hide scrollbars on body, we'll scroll inside the window */
+  font-family: 'JetBrains Mono', 'Courier New', Courier, monospace;
+  font-size: 16px; /* Modern legible size */
+  background-color: var(--ide-bg);
+  color: var(--ide-fg);
+  line-height: 1.2;
+}
+
+.ide-container {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}
+
+/* Menu Bar */
+.ide-menu-bar {
+  background-color: var(--menu-bg);
+  color: var(--menu-fg);
+  height: 28px;
+  display: flex;
+  align-items: center;
+  padding-left: 8px;
+  user-select: none;
+}
+
+.menu-items {
+  list-style: none;
+  display: flex;
+}
+
+.menu-items li {
+  margin-right: 16px;
+}
+
+.menu-items a {
+  color: var(--menu-fg);
+  text-decoration: none;
+  padding: 2px 8px;
+  display: inline-block;
+}
+
+.menu-items a:hover {
+  background-color: var(--menu-hover-bg);
+  color: var(--menu-hover-fg);
+}
+
+.menu-items a .highlight {
+  color: #FFFFFF;
+}
+
+.menu-items a:hover .highlight {
+  color: #FF5555;
+}
+
+/* Main Content Area */
+.ide-main {
+  flex: 1;
+  padding: 12px;
+  display: flex;
+  overflow: hidden;
+}
+
+.window {
+  flex: 1;
+  border: 4px double var(--ide-fg);
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  background-color: var(--ide-bg);
+}
+
+.window-title {
+  position: absolute;
+  top: -16px;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: #00A8A8;
+  color: #FFFFFF;
+  padding: 0 16px;
+  font-weight: normal;
+}
+
+.window-content {
+  flex: 1;
+  padding: 24px;
+  overflow-y: auto;
+}
+
+/* Status Bar */
+.ide-status-bar {
+  display: flex;
+  justify-content: space-between;
+  padding: 0 16px;
+  color: var(--status-fg);
+  height: 28px;
+  align-items: center;
+  user-select: none;
+}
+
+/* Typography elements */
+a {
+  color: var(--status-fg);
+  text-decoration: none;
+}
+a:hover {
+  color: #FFFFFF;
+  background: var(--status-fg);
+}
+
+h1, h2, h3, h4, h5, h6 {
+  color: #FFFFA8; /* Yellow headings */
+  margin-bottom: 24px;
+  margin-top: 24px;
+  font-weight: normal;
+}
+
+h1:first-child {
+  margin-top: 0;
+}
+
+p {
+  margin-bottom: 24px;
+}
+
+pre {
+  background-color: #000000;
+  color: #A8A8A8;
+  padding: 16px;
+  border: 1px solid var(--ide-fg);
+  margin-bottom: 24px;
+  overflow-x: auto;
+  font-family: 'JetBrains Mono', 'Courier New', Courier, monospace;
+}
+
+code {
+  font-family: inherit;
+  color: #FFFFA8;
+  background-color: #000000;
+  padding: 2px 4px;
+}
+
+pre code {
+  padding: 0;
+  background-color: transparent;
+}
+
+.post-list {
+  list-style: none;
+}
+
+.post-list li {
+  margin-bottom: 12px;
+}
+
+.post-date {
+  color: var(--status-fg);
+  margin-right: 24px;
+  display: inline-block;
+  min-width: 120px;
+}
+
+/* Scrollbar styling for webkit */
+::-webkit-scrollbar {
+  width: 20px;
+  background: var(--menu-bg);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--ide-bg);
+  border: 2px solid var(--menu-bg);
+}
+::-webkit-scrollbar-corner {
+  background: var(--menu-bg);
+}

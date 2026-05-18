@@ -1,7 +1,7 @@
 baseurl = "https://beck.dev"
 DefaultContentLanguage = "en"
 title = "Signal Fragments"
-theme = "beautifulhugo"
+theme = "qb"
 metaDataFormat = "yaml"
 pygmentsStyle = "trac"
 pygmentsUseClasses = true

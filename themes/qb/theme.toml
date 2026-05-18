@@ -1,0 +1,8 @@
+name = "gohugo-theme-qb"
+license = "MIT"
+licenselink = "https://github.com/yourname/gohugo-theme-qb/blob/master/LICENSE"
+description = "A classic MS-DOS QBASIC / QuickBASIC IDE theme for Hugo"
+homepage = "https://github.com/yourname/gohugo-theme-qb"
+tags = ["blog", "retro", "dos", "qbasic", "minimal"]
+features = ["blog"]
+min_version = "0.41.0"
