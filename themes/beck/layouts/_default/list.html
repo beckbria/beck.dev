@@ -1,0 +1,41 @@
+{{ define "main" }}
+<div class="blog-layout">
+    <div class="blog-main">
+        <h1 class="blog-list-title" style="margin-top:0; margin-bottom: 2rem; font-size: 2rem;">{{ .Title }}</h1>
+        <ul class="post-list">
+            {{ range .Paginator.Pages }}
+            <li class="post-item">
+                <h3 class="post-title">
+                    {{ if in .Params.tags "Software" }}<span class="icon-swe">💻</span>
+                    {{ else if in .Params.tags "Maker" }}<span class="icon-maker">🛠️</span>
+                    {{ else if in .Params.tags "Woodworking" }}<span class="icon-maker">🛠️</span>
+                    {{ else if in .Params.tags "Photography" }}<span class="icon-photo">📷</span>
+                    {{ end }}
+                    <a href="{{ .RelPermalink }}">{{ .Title }}</a>
+                </h3>
+                <div class="post-meta">
+                    {{ .Date.Format "Jan 2, 2006" }}
+                    {{ with .Params.tags }} • 
+                        {{ range . }}
+                            <a href="{{ relURL (print "tags/" (urlize .)) }}">#{{ . }}</a>
+                        {{ end }}
+                    {{ end }}
+                </div>
+            </li>
+            {{ end }}
+        </ul>
+        {{ template "_internal/pagination.html" . }}
+    </div>
+    <aside class="blog-sidebar">
+        <h3>Tags</h3>
+        <ul class="sidebar-tag-list">
+            {{ range $name, $taxonomy := site.Taxonomies.tags }}
+            <li>
+                <a href="{{ relURL (print "tags/" (urlize $name)) }}">#{{ $name }}</a>
+                <span class="tag-count">({{ len $taxonomy }})</span>
+            </li>
+            {{ end }}
+        </ul>
+    </aside>
+</div>
+{{ end }}

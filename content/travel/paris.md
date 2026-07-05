@@ -1,0 +1,7 @@
+---
+title: "Paris, France"
+latitude: 48.8566
+longitude: 2.3522
+override-tag: "paris"
+draft: false
+---

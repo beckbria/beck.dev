@@ -1,0 +1,25 @@
+{{ define "main" }}
+<article class="photo-detail">
+    <div class="photo-container">
+        {{ $images := .Resources.ByType "image" }}
+        {{ if $images }}
+            {{ $img := index $images 0 }}
+            <img src="{{ $img.RelPermalink }}" alt="{{ .Title }}" class="photo-display">
+        {{ else }}
+            <div class="photo-missing">
+                [No Photo Found]
+            </div>
+        {{ end }}
+    </div>
+    
+    <h1 class="photo-title">{{ .Title }}</h1>
+    <div class="photo-meta">
+        {{ if .Params.location }}<span class="photo-location">📍 {{ .Params.location }}</span>{{ end }}
+        {{ if .Params.date }}<span class="photo-date">📅 {{ .Date.Format "Jan 2, 2006" }}</span>{{ end }}
+    </div>
+    
+    <div class="photo-content prose">
+        {{ .Content }}
+    </div>
+</article>
+{{ end }}
