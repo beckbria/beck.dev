@@ -79,11 +79,29 @@ hugo new posts/my-new-post.md
 **Visibility Control:** In the generated markdown file's front matter, set `draft: true` to keep the post hidden. Change it to `draft: false` when you are ready to publish it publicly.
 
 ### Adding a New Photo
-Photos use Hugo page bundles to bind high-resolution images and metadata together.
+
+You can add photos automatically using the helper script or manually.
+
+#### Automated Import (Recommended)
+Run the import script in WSL:
+```bash
+./add_photo.sh /path/to/my-new-photo.jpg
+```
+This script will:
+1. Create a new folder at `content/photos/my-new-photo/`.
+2. Extract the photo's original date from EXIF data (`DateTimeOriginal`) if available, or fall back to the file's creation date.
+3. Create `index.md` with the required metadata and tags.
+4. Move the photo file into the folder.
+
+After running the script, you should manually edit `index.md` to provide a title, description, and appropriate tags
+
+#### Manual Import
 1. Create a new folder for the photo (e.g., `content/photos/my-new-photo/`).
 2. Drop your full-resolution image into this folder (e.g., `image.jpg`).
 3. Create an `index.md` file in the folder to hold your tags, location, and text description.
+
 **Visibility Control:** Set `draft: true` in the `index.md` front matter to hide the photo from the gallery. Set `draft: false` to publish it. (The theme will automatically handle responsive resizing).
+
 
 ### Adding a New Location Travelled
 Locations on the interactive map are driven by content entries.
@@ -98,16 +116,17 @@ Locations on the interactive map are driven by content entries.
 │   └── _default/
 │       ├── hugo.toml     # Global Hugo settings
 │       ├── markup.toml   # Markdown parsing config (e.g., enable HTML)
-│       ├── menus.toml    # Header and footer navigation menus
-│       └── params.toml   # Theme configuration (colors, author bio, social links)
+│       └── params.toml   # Author parameters
 ├── content/
-│   ├── _index.md         # Home page content
-│   └── posts/
-│       └── my-first-post.md # Sample post file
+│   ├── _index.md         # Home page content (including Bio)
+│   ├── photos/           # Photo page bundles
+│   ├── posts/            # Blog posts
+│   └── travel/           # Travel location pages
+├── themes/
+│   └── beck/             # Custom 'beck' theme files (layouts, styles, assets)
 ├── Dockerfile            # Container image definition with Hugo Extended & Go
 ├── docker-compose.yml    # Development environment orchestration
-├── go.mod                # Module definition (for theme modules)
-├── psRun.ps1             # PowerShell helper script
+├── run.ps1               # PowerShell helper script
 ├── run.sh                # Shell helper script
 └── README.md             # This documentation
 ```

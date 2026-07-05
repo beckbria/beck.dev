@@ -1,0 +1,79 @@
+{{ define "main" }}
+<article class="travel-detail prose lg:prose-xl mx-auto">
+    <h1 class="text-4xl font-bold mb-4">{{ .Title }}</h1>
+    <div class="content mb-8">
+        {{ .Content }}
+    </div>
+
+    {{/* Resolve the tag to match */}}
+    {{ $targetTag := .Title | lower }}
+    {{ $override := index .Params "override-tag" }}
+    {{ if $override }}
+        {{ $targetTag = $override | lower }}
+    {{ end }}
+
+    {{/* Find matching pages */}}
+    {{ $matchingPhotos := slice }}
+    {{ $matchingBlog := slice }}
+    
+    {{ range site.RegularPages }}
+        {{ $page := . }}
+        {{ $hasTag := false }}
+        {{ range .Params.tags }}
+            {{ if eq (lower .) $targetTag }}
+                {{ $hasTag = true }}
+            {{ end }}
+        {{ end }}
+        
+        {{ if $hasTag }}
+            {{ if eq $page.Type "photos" }}
+                {{ $matchingPhotos = $matchingPhotos | append $page }}
+            {{ else if eq $page.Type "posts" }}
+                {{ $matchingBlog = $matchingBlog | append $page }}
+            {{ end }}
+        {{ end }}
+    {{ end }}
+
+    {{/* Render matching photos full width */}}
+    {{ if $matchingPhotos }}
+    <div class="travel-photos" style="margin-top: 3rem; margin-bottom: 3rem;">
+        <h2 style="font-size: 1.5rem; border-bottom: 1px solid var(--border-color); padding-bottom: 0.5rem; margin-bottom: 1.5rem;">Photos</h2>
+        {{ range $matchingPhotos }}
+            <div class="photo-container" style="margin-bottom: 2rem;">
+                {{ $images := .Resources.ByType "image" }}
+                {{ if $images }}
+                    {{ $img := index $images 0 }}
+                    <a href="{{ .RelPermalink }}">
+                        <img src="{{ $img.RelPermalink }}" alt="{{ .Title }}" class="photo-display" style="width: 100%; height: auto; display: block;">
+                    </a>
+                {{ end }}
+            </div>
+        {{ end }}
+    </div>
+    {{ end }}
+
+    {{/* Render matching blog posts */}}
+    {{ if $matchingBlog }}
+    <div class="travel-blog" style="margin-top: 3rem;">
+        <h2 style="font-size: 1.5rem; border-bottom: 1px solid var(--border-color); padding-bottom: 0.5rem; margin-bottom: 1.5rem;">Related Blog Posts</h2>
+        <ul class="post-list" style="list-style: none; padding: 0;">
+            {{ range $matchingBlog }}
+            <li class="post-item" style="margin-bottom: 1.5rem; padding-bottom: 1.5rem; border-bottom: 1px solid var(--border-color);">
+                <h3 class="post-title" style="font-size: 1.25rem; margin: 0 0 0.25rem 0; display: flex; align-items: center; gap: 0.5rem;">
+                    {{ if in .Params.tags "Software" }}<span class="icon-swe">💻</span>
+                    {{ else if in .Params.tags "Maker" }}<span class="icon-maker">🛠️</span>
+                    {{ else if in .Params.tags "Woodworking" }}<span class="icon-maker">🛠️</span>
+                    {{ else if in .Params.tags "Photography" }}<span class="icon-photo">📷</span>
+                    {{ end }}
+                    <a href="{{ .RelPermalink }}">{{ .Title }}</a>
+                </h3>
+                <div class="post-meta" style="font-size: 0.85rem; color: var(--text-muted);">
+                    {{ .Date.Format "Jan 2, 2006" }}
+                </div>
+            </li>
+            {{ end }}
+        </ul>
+    </div>
+    {{ end }}
+</article>
+{{ end }}

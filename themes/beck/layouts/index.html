@@ -1,14 +1,14 @@
 {{ define "main" }}
 <section class="bio-section">
-    {{ $bio := resources.Get "images/placeholder-bio.svg" }}
+    {{ $bioPath := .Params.bio_image | default "images/placeholder-bio.svg" }}
+    {{ $bio := resources.Get $bioPath }}
     {{ if $bio }}
     <img src="{{ $bio.RelPermalink }}" alt="Profile Picture" class="profile-pic">
     {{ else }}
     <div class="profile-pic"></div>
     {{ end }}
     <div>
-        <h2>Hello, I'm Beck.</h2>
-        <p>A software engineer, photographer, and maker. I build robust systems, capture the world around me, and occasionally tinker with hardware and 3D printing. Welcome to my personal site where I share my projects and thoughts.</p>
+        <div>{{ .Content }}</div>
     </div>
 </section>
 
@@ -16,14 +16,14 @@
     <h2>Recent Photos</h2>
     <div class="photo-grid">
         {{ range first 4 (where site.RegularPages "Type" "photos") }}
-            <a href="{{ .RelPermalink }}">
-                {{ $images := .Resources.ByType "image" }}
-                {{ if $images }}
-                    {{ $img := index $images 0 }}
-                    {{ $thumb := $img.Fill "400x400 webp" }}
-                    <img src="{{ $thumb.RelPermalink }}" alt="{{ .Title }}">
-                {{ end }}
-            </a>
+        <a href="{{ .RelPermalink }}">
+            {{ $images := .Resources.ByType "image" }}
+            {{ if $images }}
+            {{ $img := index $images 0 }}
+            {{ $thumb := $img.Fill "400x400 webp" }}
+            <img src="{{ $thumb.RelPermalink }}" alt="{{ .Title }}">
+            {{ end }}
+        </a>
         {{ end }}
     </div>
 </section>
@@ -50,10 +50,10 @@
             </h3>
             <div class="post-meta">
                 {{ .Date.Format "Jan 2, 2006" }}
-                {{ with .Params.tags }} • 
-                    {{ range . }}
-                        <a href="{{ relURL (print "tags/" (urlize .)) }}">#{{ . }}</a>
-                    {{ end }}
+                {{ with .Params.tags }} •
+                {{ range . }}
+                <a href="{{ relURL (print " tags/" (urlize .)) }}">#{{ . }}</a>
+                {{ end }}
                 {{ end }}
             </div>
         </li>

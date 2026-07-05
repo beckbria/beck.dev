@@ -1,17 +1,16 @@
 {{ define "main" }}
 <article class="prose lg:prose-xl mx-auto">
     <h1 class="text-4xl font-bold mb-4">{{ .Title }}</h1>
-    <div class="text-gray-500 mb-8">{{ .Date.Format "January 2, 2006" }}</div>
+    <div class="text-gray-500 mb-8">
+        {{ .Date.Format "January 2, 2006" }}
+        {{ with .Params.tags }} • 
+            {{ range . }}
+                <a href="{{ relURL (print "tags/" (urlize .)) }}" style="margin-right: 0.25rem;">#{{ . }}</a>
+            {{ end }}
+        {{ end }}
+    </div>
     <div class="content">
         {{ .Content }}
     </div>
-    {{ with .Params.tags }}
-    <div class="post-tags-footer">
-        <strong>Tags:</strong>
-        {{ range . }}
-            <a href="{{ relURL (print "tags/" (urlize .)) }}">#{{ . }}</a>
-        {{ end }}
-    </div>
-    {{ end }}
 </article>
 {{ end }}

@@ -7,7 +7,10 @@ RUN apk add --no-cache \
     build-base \
     libc6-compat \
     gcompat \
-    bash
+    bash \
+    python3 \
+    py3-exifread
+
 
 # Define Hugo version (extended)
 ARG HUGO_VERSION=0.163.3
