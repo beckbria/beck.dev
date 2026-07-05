@@ -83,17 +83,30 @@ hugo new posts/my-new-post.md
 You can add photos automatically using the helper script or manually.
 
 #### Automated Import (Recommended)
-Run the import script in WSL:
+Run the import script in WSL, passing either a file path or a directory containing `*.jpg`/`*.jpeg` images:
 ```bash
+# Import a single image
 ./add_photo.sh /path/to/my-new-photo.jpg
+
+# Batch import all JPGs in a directory
+./add_photo.sh /path/to/my-photos-directory/
 ```
 This script will:
-1. Create a new folder at `content/photos/my-new-photo/`.
+1. Create a new folder under `content/photos/` for each image.
 2. Extract the photo's original date from EXIF data (`DateTimeOriginal`) if available, or fall back to the file's creation date.
-3. Create `index.md` with the required metadata and tags.
+3. Create `index.md` inside each folder with the required metadata and tags.
 4. Move the photo file into the folder.
+5. Scrub sensitive EXIF metadata (Camera Serial Number, Lens Serial Number, GPS info, original filename, software name, and artist name) from the imported images.
+
 
 After running the script, you should manually edit `index.md` to provide a title, description, and appropriate tags
+
+#### Cleaning Metadata in Bulk
+If you have manually imported photos or want to ensure that all images in your gallery are thoroughly cleaned of sensitive metadata, you can run the bulk cleaning utility in WSL:
+```bash
+./clean_exif.sh
+```
+This script recursively scans `content/photos/` and strips the same list of sensitive EXIF fields (Serial Number, Lens Serial Number, GPS, Software, Artist, and Filename) in place.
 
 #### Manual Import
 1. Create a new folder for the photo (e.g., `content/photos/my-new-photo/`).

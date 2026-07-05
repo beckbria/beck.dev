@@ -3,11 +3,37 @@ import os
 import sys
 import shutil
 import datetime
+import subprocess
 
 try:
     import exifread
 except ImportError:
     exifread = None
+
+def clear_exif_fields(image_path):
+    print(f"Clearing sensitive EXIF fields from {image_path}...")
+    try:
+        cmd = [
+            "exiftool",
+            "-overwrite_original",
+            "-SerialNumber=",
+            "-LensSerialNumber=",
+            "-GPS:all=",
+            "-OriginalFileName=",
+            "-OriginalFilename=",
+            "-PreservedFileName=",
+            "-Software=",
+            "-Artist=",
+            "-Creator=",
+            "-by-line=",
+            image_path
+        ]
+        subprocess.run(cmd, capture_output=True, text=True, check=True)
+        print("EXIF fields cleared successfully.")
+    except FileNotFoundError:
+        print("Warning: exiftool not found in path, skipping metadata cleaning.", file=sys.stderr)
+    except subprocess.CalledProcessError as e:
+        print(f"Warning: Failed to clear EXIF metadata: {e.stderr.strip() or e}", file=sys.stderr)
 
 def get_image_date(image_path):
     if exifread is not None:
@@ -29,9 +55,6 @@ def get_image_date(image_path):
     # Fallback to file creation / modification date
     try:
         stat = os.stat(image_path)
-        # st_birthtime is the creation date on macOS/BSD and some Linux filesystems.
-        # on Windows, st_ctime is the creation time.
-        # on Linux without st_birthtime, st_mtime is the modification time.
         if hasattr(stat, 'st_birthtime'):
             file_time = stat.st_birthtime
         elif os.name == 'nt':
@@ -45,53 +68,38 @@ def get_image_date(image_path):
         print(f"Warning: Failed to get file timestamp: {e}", file=sys.stderr)
         return datetime.date.today().strftime('%Y-%m-%d')
 
-def main():
-    if len(sys.argv) < 2:
-        print("Usage: python add_photo.py <path_to_image>", file=sys.stderr)
-        sys.exit(1)
-
-    image_path = sys.argv[1]
-    if not os.path.exists(image_path):
-        print(f"Error: File '{image_path}' does not exist.", file=sys.stderr)
-        sys.exit(1)
-
+def import_single_photo(image_path):
     # Extract name and extension
     base_name = os.path.basename(image_path)
     name, ext = os.path.splitext(base_name)
     if not name:
-        print(f"Error: Could not extract name from file path '{image_path}'", file=sys.stderr)
-        sys.exit(1)
+        raise ValueError(f"Could not extract name from file path '{image_path}'")
 
-    # Define target directory
-    # Inside the container, /src is the root of the project.
     target_dir = os.path.join("content", "photos", name)
 
     if os.path.exists(target_dir):
-        print(f"Error: Directory '{target_dir}' already exists.", file=sys.stderr)
-        sys.exit(1)
+        raise FileExistsError(f"Directory '{target_dir}' already exists.")
 
     # Extract date before moving the file
     image_date = get_image_date(image_path)
 
     # Create directory
-    try:
-        os.makedirs(target_dir)
-    except Exception as e:
-        print(f"Error: Failed to create directory '{target_dir}': {e}", file=sys.stderr)
-        sys.exit(1)
+    os.makedirs(target_dir)
 
     # Move image file
     target_image_path = os.path.join(target_dir, base_name)
     try:
         shutil.move(image_path, target_image_path)
     except Exception as e:
-        print(f"Error: Failed to move image file to '{target_image_path}': {e}", file=sys.stderr)
         # Attempt cleanup of the directory we just created
         try:
             os.rmdir(target_dir)
         except Exception:
             pass
-        sys.exit(1)
+        raise RuntimeError(f"Failed to move image file to '{target_image_path}': {e}")
+
+    # Clear EXIF fields on target path
+    clear_exif_fields(target_image_path)
 
     # Create index.md
     index_path = os.path.join(target_dir, "index.md")
@@ -107,14 +115,60 @@ tags:
             f.write(content)
         print(f"Successfully imported photo as page bundle: {target_dir}")
     except Exception as e:
-        print(f"Error: Failed to create '{index_path}': {e}", file=sys.stderr)
         # Attempt cleanup
         try:
             os.remove(target_image_path)
             os.rmdir(target_dir)
         except Exception:
             pass
+        raise RuntimeError(f"Failed to create '{index_path}': {e}")
+
+def main():
+    if len(sys.argv) < 2:
+        print("Usage: python add_photo.py <path_to_image_or_directory>", file=sys.stderr)
         sys.exit(1)
+
+    input_path = sys.argv[1]
+    if not os.path.exists(input_path):
+        print(f"Error: Path '{input_path}' does not exist.", file=sys.stderr)
+        sys.exit(1)
+
+    if os.path.isdir(input_path):
+        # Gather all *.jpg / *.jpeg files (case-insensitive)
+        files = []
+        for f in os.listdir(input_path):
+            if f.lower().endswith(('.jpg', '.jpeg')):
+                files.append(os.path.join(input_path, f))
+        
+        if not files:
+            print(f"No JPG files found in directory '{input_path}'.", file=sys.stderr)
+            sys.exit(0)
+            
+        print(f"Found {len(files)} image files to process.")
+        success_count = 0
+        fail_count = 0
+        for f in sorted(files):
+            print(f"\nProcessing {f}...")
+            try:
+                import_single_photo(f)
+                success_count += 1
+            except Exception as e:
+                print(f"Error importing {f}: {e}", file=sys.stderr)
+                fail_count += 1
+                
+        print(f"\nImport finished. {success_count} succeeded, {fail_count} failed.")
+        if fail_count > 0:
+            sys.exit(1)
+        else:
+            sys.exit(0)
+    else:
+        # Single file import
+        try:
+            import_single_photo(input_path)
+            sys.exit(0)
+        except Exception as e:
+            print(f"Error: {e}", file=sys.stderr)
+            sys.exit(1)
 
 if __name__ == "__main__":
     main()

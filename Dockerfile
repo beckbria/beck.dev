@@ -9,7 +9,9 @@ RUN apk add --no-cache \
     gcompat \
     bash \
     python3 \
-    py3-exifread
+    py3-exifread \
+    exiftool
+
 
 
 # Define Hugo version (extended)

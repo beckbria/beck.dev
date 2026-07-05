@@ -2,6 +2,6 @@
 title: "Chairs"
 date: 2023-11-09
 tags:
-  - "Seattle"
+  - "seattle"
 ---
-Ballard, WA, USA
+Outdoor seating at a hotel in Ballard, Seattle.
