@@ -1,11 +1,11 @@
 baseURL = "https://beck.dev"
-title = "Signal Fragments"
+title = "Brian Beck"
 locale = "en"
 defaultContentLanguage = "en"
 cacheDir = "/src/.hugo_cache/"
 
 # Enable JSON output for search functionality
 [outputs]
-  home = ["HTML", "RSS", "JSON"]
+home = ["HTML", "RSS", "JSON"]
 
 theme = "beck"
