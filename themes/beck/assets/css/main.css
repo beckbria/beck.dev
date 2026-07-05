@@ -1,0 +1,10 @@
+/* Tailwind CSS would typically be injected here, but for now we'll add some base resets and utility classes to simulate the requested look if Tailwind isn't run. */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap');
+
+body {
+    font-family: 'Inter', sans-serif;
+}
+
+/* Fallback styles if Tailwind doesn't process */
+.prose { max-w: 65ch; }
+.container { max-width: 64rem; margin-left: auto; margin-right: auto; }

@@ -1,0 +1,13 @@
+{{ define "main" }}
+<h1 class="text-3xl font-bold mb-8">{{ .Title }}</h1>
+<div class="space-y-8">
+    {{ range .Paginator.Pages }}
+    <article>
+        <h2 class="text-2xl font-semibold"><a href="{{ .RelPermalink }}" class="hover:text-blue-600">{{ .Title }}</a></h2>
+        <div class="text-sm text-gray-500 mb-2">{{ .Date.Format "Jan 2, 2006" }}</div>
+        <p class="text-gray-700">{{ .Summary }}</p>
+    </article>
+    {{ end }}
+</div>
+{{ partial "pagination.html" . }}
+{{ end }}

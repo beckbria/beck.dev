@@ -1,0 +1,16 @@
+{{ define "main" }}
+<h1 class="text-3xl font-bold mb-4">{{ .Title }}</h1>
+<div class="prose max-w-none mb-8">
+    {{ .Content }}
+</div>
+
+<div id="map" class="w-full h-96 bg-gray-200 rounded shadow-md border border-gray-300 z-0 relative">
+    <!-- Leaflet map container -->
+</div>
+
+<!-- Load Leaflet JS -> map.js -->
+{{ $mapjs := resources.Get "js/map.js" | resources.Minify }}
+{{ if $mapjs }}
+<script src="{{ $mapjs.Permalink }}"></script>
+{{ end }}
+{{ end }}
