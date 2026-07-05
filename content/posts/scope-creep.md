@@ -2,7 +2,7 @@
 title: "Scope Creep"
 date: 2020-03-14T17:18:46-07:00
 draft: false
-tags: ["Software", "Woodworking", "Project Management"]
+tags: ["Software", "Woodworking", "Project Management", "Maker"]
 ---
 
 I have a brand new home office setup.  This all started when I planned to build a bed - a bed that doesn't exist and that won't be finished any time soon.  How did things come to this?

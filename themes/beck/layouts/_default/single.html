@@ -5,5 +5,13 @@
     <div class="content">
         {{ .Content }}
     </div>
+    {{ with .Params.tags }}
+    <div class="post-tags-footer">
+        <strong>Tags:</strong>
+        {{ range . }}
+            <a href="{{ relURL (print "tags/" (urlize .)) }}">#{{ . }}</a>
+        {{ end }}
+    </div>
+    {{ end }}
 </article>
 {{ end }}

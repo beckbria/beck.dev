@@ -1,25 +1,24 @@
 {{ define "main" }}
-<article class="max-w-4xl mx-auto">
-    <div class="mb-8 rounded overflow-hidden shadow-lg bg-gray-200">
+<article class="photo-detail">
+    <div class="photo-container">
         {{ $images := .Resources.ByType "image" }}
         {{ if $images }}
             {{ $img := index $images 0 }}
-            {{ $display := $img.Resize "1200x webp" }}
-            <img src="{{ $display.RelPermalink }}" alt="{{ .Title }}" class="w-full h-auto block">
+            <img src="{{ $img.RelPermalink }}" alt="{{ .Title }}" class="photo-display">
         {{ else }}
-            <div class="w-full aspect-video flex items-center justify-center text-gray-500">
+            <div class="photo-missing">
                 [No Photo Found]
             </div>
         {{ end }}
     </div>
     
-    <h1 class="text-3xl font-bold mb-2">{{ .Title }}</h1>
-    <div class="text-sm text-gray-500 mb-6">
-        {{ if .Params.location }}<span class="mr-4">📍 {{ .Params.location }}</span>{{ end }}
-        {{ if .Params.date }}<span>📅 {{ .Date.Format "Jan 2, 2006" }}</span>{{ end }}
+    <h1 class="photo-title">{{ .Title }}</h1>
+    <div class="photo-meta">
+        {{ if .Params.location }}<span class="photo-location">📍 {{ .Params.location }}</span>{{ end }}
+        {{ if .Params.date }}<span class="photo-date">📅 {{ .Date.Format "Jan 2, 2006" }}</span>{{ end }}
     </div>
     
-    <div class="prose max-w-none">
+    <div class="photo-content prose">
         {{ .Content }}
     </div>
 </article>

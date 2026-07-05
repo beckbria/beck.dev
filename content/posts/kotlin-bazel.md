@@ -2,7 +2,7 @@
 title: "Building Kotlin in a Bazel environment"
 date: 2023-12-10T23:23:09-08:00
 draft: false
-tags: ["Programming", "Bazel", "Kotlin"]
+tags: ["Software", "Bazel", "Kotlin"]
 ---
 
 # Kotlin on Bazel

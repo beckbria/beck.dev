@@ -1,21 +1,75 @@
 {{ define "main" }}
-<h1 class="text-3xl font-bold mb-8">{{ .Title }}</h1>
-<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-    {{ range .Pages }}
-    <a href="{{ .RelPermalink }}" class="block group">
-        <div class="bg-gray-200 aspect-square rounded shadow overflow-hidden relative">
-            {{ $images := .Resources.ByType "image" }}
-            {{ if $images }}
-                {{ $img := index $images 0 }}
-                {{ $thumb := $img.Fill "600x600 webp" }}
-                <img src="{{ $thumb.RelPermalink }}" alt="{{ .Title }}" class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105">
+<div class="photos-layout">
+    <div class="photos-main">
+        <h1 style="margin-top:0; margin-bottom: 2rem; font-size: 2rem;">{{ .Title }}</h1>
+        <div class="photos-grid">
+            {{ range .Pages }}
+                {{ $tagsList := "" }}
+                {{ with .Params.tags }}
+                    {{ $tagsList = delimit . " " }}
+                {{ end }}
+                <a href="{{ .RelPermalink }}" class="photo-grid-item" data-tags="{{ $tagsList | lower }}">
+                    <div class="photo-grid-wrapper">
+                        {{ $images := .Resources.ByType "image" }}
+                        {{ if $images }}
+                            {{ $img := index $images 0 }}
+                            {{ $thumb := $img.Fill "300x300 webp" }}
+                            <img src="{{ $thumb.RelPermalink }}" alt="{{ .Title }}">
+                        {{ end }}
+                    </div>
+                </a>
             {{ end }}
-            <div class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-20 transition-all duration-300"></div>
-            <div class="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-black to-transparent text-white opacity-0 group-hover:opacity-100 transition-opacity">
-                <span class="font-semibold">{{ .Title }}</span>
-            </div>
         </div>
-    </a>
-    {{ end }}
+    </div>
+    <aside class="photos-sidebar">
+        <h3>Filter by Tag</h3>
+        <ul class="sidebar-filter-list">
+            <li>
+                <button class="filter-tag-btn active" data-filter="all">Show All</button>
+            </li>
+            {{ $photoTags := slice }}
+            {{ range .Pages }}
+                {{ with .Params.tags }}
+                    {{ range . }}
+                        {{ $photoTags = $photoTags | append . }}
+                    {{ end }}
+                {{ end }}
+            {{ end }}
+            {{ range ($photoTags | uniq | sort) }}
+                <li>
+                    <button class="filter-tag-btn" data-filter="{{ . | lower }}">#{{ . }}</button>
+                </li>
+            {{ end }}
+        </ul>
+    </aside>
 </div>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+    const buttons = document.querySelectorAll('.filter-tag-btn');
+    const items = document.querySelectorAll('.photo-grid-item');
+
+    buttons.forEach(btn => {
+        btn.addEventListener('click', () => {
+            buttons.forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+
+            const filterValue = btn.getAttribute('data-filter');
+
+            items.forEach(item => {
+                if (filterValue === 'all') {
+                    item.style.display = 'block';
+                } else {
+                    const itemTags = item.getAttribute('data-tags').split(' ');
+                    if (itemTags.includes(filterValue)) {
+                        item.style.display = 'block';
+                    } else {
+                        item.style.display = 'none';
+                    }
+                }
+            });
+        });
+    });
+});
+</script>
 {{ end }}

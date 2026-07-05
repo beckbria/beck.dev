@@ -2,7 +2,7 @@
 title: "Integrating Rifftrax Audio Into Movies"
 date: 2020-07-30T23:00:44-07:00
 draft: false
-tags: ["software","media"]
+tags: ["Software","Media"]
 ---
 [RiffTrax](https://www.rifftrax.com) is a project by the actors behind [MST3K](https://en.wikipedia.org/wiki/Mystery_Science_Theater_3000).  While they specialize in Sci-Fi B-Movies, they also offer "[Just the Jokes](https://www.rifftrax.com/catalog/product-type/jokes)": riff tracks that play over traditional Hollywood movies you've seen before.
 

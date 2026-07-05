@@ -2,6 +2,7 @@
 title: "Small Parts Organization"
 date: 2020-09-06T16:55:56-07:00
 draft: false
+tags: ["Maker"]
 ---
 There are all sorts of reasons to amass a large number of various small items depending on your hobbies and interests.  Whether it's hardware, electrical components, plastic bricks, or any other passion, things tend to pile up.  There are a number of ways to deal with this - drawers, tool cabinets, and so on - but my favorite is modular boxes.  These boxes have spaces for items of various sizes and can be carried around to where you need them, while still being stored in a central location for quick reference.
 

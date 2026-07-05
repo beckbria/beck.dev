@@ -67,7 +67,7 @@ nav a {
     display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem;
 }
 .photo-grid img {
-    width: 100%; height: 150px; object-fit: cover;
+    width: 100%; aspect-ratio: 1; object-fit: cover;
     border-radius: 8px; transition: transform 0.2s;
 }
 .photo-grid img:hover { transform: scale(1.03); }
@@ -105,3 +105,215 @@ nav a {
 .prose h2 { font-size: 1.5rem; margin-top: 1.5rem; margin-bottom: 0.75rem; border-bottom: 1px solid var(--border-color); padding-bottom: 0.25rem; }
 .prose p { margin-bottom: 1rem; }
 .prose img { max-width: 100%; height: auto; border-radius: 8px; }
+
+/* Photo Detail Page Styles */
+.photo-detail {
+    max-width: 100%;
+    margin: 0 auto;
+}
+
+.photo-container {
+    margin-bottom: 2rem;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    background-color: var(--border-color);
+}
+
+.photo-display {
+    max-width: 100%;
+    height: auto;
+    display: block;
+    margin: 0 auto;
+}
+
+.photo-missing {
+    width: 100%;
+    aspect-ratio: 16/9;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--text-muted);
+}
+
+.photo-title {
+    font-size: 2rem;
+    margin: 0 0 0.5rem 0;
+}
+
+.photo-meta {
+    font-size: 0.9rem;
+    color: var(--text-muted);
+    margin-bottom: 1.5rem;
+    display: flex;
+    gap: 1rem;
+}
+
+/* Blog Layout (Two Column) */
+.blog-layout {
+    display: flex;
+    gap: 3rem;
+}
+
+.blog-main {
+    flex: 3;
+}
+
+.blog-sidebar {
+    flex: 1;
+    border-left: 1px solid var(--border-color);
+    padding-left: 2rem;
+}
+
+.blog-sidebar h3 {
+    margin-top: 0;
+    margin-bottom: 1rem;
+    font-size: 1.2rem;
+    border-bottom: 1px solid var(--border-color);
+    padding-bottom: 0.5rem;
+}
+
+.sidebar-tag-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.sidebar-tag-list li {
+    margin-bottom: 0.5rem;
+    font-size: 0.9rem;
+}
+
+.sidebar-tag-list a {
+    color: var(--text-color);
+}
+
+.sidebar-tag-list a:hover {
+    color: var(--accent-swe);
+}
+
+.tag-count {
+    color: var(--text-muted);
+    font-size: 0.8rem;
+    margin-left: 0.25rem;
+}
+
+.post-tags-footer {
+    margin-top: 3rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--border-color);
+    font-size: 0.9rem;
+}
+
+.post-tags-footer a {
+    margin-left: 0.5rem;
+}
+
+/* Photos Layout (Two Column with Grid) */
+.photos-layout {
+    display: flex;
+    gap: 3rem;
+}
+
+.photos-main {
+    flex: 3;
+}
+
+.photos-sidebar {
+    flex: 1;
+    border-left: 1px solid var(--border-color);
+    padding-left: 2rem;
+}
+
+.photos-sidebar h3 {
+    margin-top: 0;
+    margin-bottom: 1rem;
+    font-size: 1.2rem;
+    border-bottom: 1px solid var(--border-color);
+    padding-bottom: 0.5rem;
+}
+
+.sidebar-filter-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.sidebar-filter-list li {
+    margin-bottom: 0.5rem;
+}
+
+.filter-tag-btn {
+    background: none;
+    border: none;
+    color: var(--text-color);
+    font-size: 0.9rem;
+    padding: 0.25rem 0;
+    cursor: pointer;
+    text-align: left;
+    width: 100%;
+}
+
+.filter-tag-btn:hover {
+    color: var(--accent-swe);
+}
+
+.filter-tag-btn.active {
+    color: var(--accent-swe);
+    font-weight: bold;
+}
+
+.photos-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+    gap: 0.75rem;
+}
+
+.photo-grid-item {
+    display: block;
+}
+
+.photo-grid-wrapper {
+    aspect-ratio: 1;
+    background-color: var(--border-color);
+    border-radius: 6px;
+    overflow: hidden;
+    position: relative;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
+
+.photo-grid-wrapper img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.2s, filter 0.2s;
+}
+
+.photo-grid-wrapper img:hover {
+    transform: scale(1.05);
+    filter: brightness(0.9);
+}
+
+@media (max-width: 768px) {
+    .blog-layout {
+        flex-direction: column;
+        gap: 2rem;
+    }
+    .blog-sidebar {
+        border-left: none;
+        padding-left: 0;
+        border-top: 1px solid var(--border-color);
+        padding-top: 2rem;
+    }
+    .photos-layout {
+        flex-direction: column-reverse;
+        gap: 2rem;
+    }
+    .photos-sidebar {
+        border-left: none;
+        padding-left: 0;
+        border-bottom: 1px solid var(--border-color);
+        padding-bottom: 2rem;
+        border-top: none;
+    }
+}
