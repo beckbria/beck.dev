@@ -4,7 +4,12 @@
     {{ range .Pages }}
     <a href="{{ .RelPermalink }}" class="block group">
         <div class="bg-gray-200 aspect-square rounded shadow overflow-hidden relative">
-            <!-- Photo thumbnail would go here -->
+            {{ $images := .Resources.ByType "image" }}
+            {{ if $images }}
+                {{ $img := index $images 0 }}
+                {{ $thumb := $img.Fill "600x600 webp" }}
+                <img src="{{ $thumb.RelPermalink }}" alt="{{ .Title }}" class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105">
+            {{ end }}
             <div class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-20 transition-all duration-300"></div>
             <div class="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-black to-transparent text-white opacity-0 group-hover:opacity-100 transition-opacity">
                 <span class="font-semibold">{{ .Title }}</span>

@@ -1,38 +1,64 @@
 {{ define "main" }}
-<div class="bio-section flex flex-col md:flex-row items-center mb-12 gap-8">
+<section class="bio-section">
     {{ $bio := resources.Get "images/placeholder-bio.svg" }}
     {{ if $bio }}
-    <img src="{{ $bio.Permalink }}" alt="Bio Picture" class="w-32 h-32 rounded-full object-cover shadow-md bg-gray-200">
+    <img src="{{ $bio.RelPermalink }}" alt="Profile Picture" class="profile-pic">
     {{ else }}
-    <div class="w-32 h-32 rounded-full bg-gray-300 shadow-md"></div>
+    <div class="profile-pic"></div>
     {{ end }}
     <div>
-        <h1 class="text-3xl font-bold mb-2">Hello, I'm Beck.</h1>
-        <p class="text-gray-700 text-lg">A software engineer, photographer, and maker.</p>
+        <h2>Hello, I'm Beck.</h2>
+        <p>A software engineer, photographer, and maker. I build robust systems, capture the world around me, and occasionally tinker with hardware and 3D printing. Welcome to my personal site where I share my projects and thoughts.</p>
     </div>
-</div>
+</section>
 
-<section class="recent-posts mb-12">
-    <h2 class="text-2xl font-bold mb-4 border-b pb-2">Recent Posts</h2>
-    <div class="space-y-4">
-        {{ range first 5 (where site.RegularPages "Type" "in" (slice "blog" "posts")) }}
-        <article>
-            <h3 class="text-xl font-semibold"><a href="{{ .RelPermalink }}" class="hover:text-blue-600">{{ .Title }}</a></h3>
-            <div class="text-sm text-gray-500 mb-2">{{ .Date.Format "Jan 2, 2006" }}</div>
-            <p>{{ .Summary }}</p>
-        </article>
+<section class="photos-section">
+    <h2>Recent Photos</h2>
+    <div class="photo-grid">
+        {{ range first 4 (where site.RegularPages "Type" "photos") }}
+            <a href="{{ .RelPermalink }}">
+                {{ $images := .Resources.ByType "image" }}
+                {{ if $images }}
+                    {{ $img := index $images 0 }}
+                    {{ $thumb := $img.Fill "400x400 webp" }}
+                    <img src="{{ $thumb.RelPermalink }}" alt="{{ .Title }}">
+                {{ end }}
+            </a>
         {{ end }}
     </div>
 </section>
 
-<section class="recent-photos">
-    <h2 class="text-2xl font-bold mb-4 border-b pb-2">Recent Photos</h2>
-    <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
-        {{ range first 6 (where site.RegularPages "Type" "photos") }}
-            <a href="{{ .RelPermalink }}" class="block bg-gray-200 h-40 rounded shadow hover:opacity-75 transition-opacity">
-                <!-- placeholder for now -->
-            </a>
-        {{ end }}
+<section class="blog-section">
+    <h2>Latest Posts</h2>
+    <div class="category-filters">
+        <button class="filter-btn active">All</button>
+        <button class="filter-btn"><span class="icon-swe">💻</span> Software</button>
+        <button class="filter-btn"><span class="icon-maker">🛠️</span> Maker</button>
+        <button class="filter-btn"><span class="icon-photo">📷</span> Photo</button>
     </div>
+
+    <ul class="post-list">
+        {{ range first 5 (where site.RegularPages "Type" "in" (slice "blog" "posts")) }}
+        <li class="post-item">
+            <h3 class="post-title">
+                {{ if in .Params.tags "Software" }}<span class="icon-swe">💻</span>
+                {{ else if in .Params.tags "Maker" }}<span class="icon-maker">🛠️</span>
+                {{ else if in .Params.tags "Woodworking" }}<span class="icon-maker">🛠️</span>
+                {{ else if in .Params.tags "Photography" }}<span class="icon-photo">📷</span>
+                {{ end }}
+                <a href="{{ .RelPermalink }}">{{ .Title }}</a>
+            </h3>
+            <div class="post-meta">
+                {{ .Date.Format "Jan 2, 2006" }}
+                {{ with .Params.tags }} • 
+                    {{ range . }}
+                        <a href="{{ relURL (print "tags/" (urlize .)) }}">#{{ . }}</a>
+                    {{ end }}
+                {{ end }}
+            </div>
+            <p style="margin: 0; color: var(--text-muted);">{{ .Summary }}</p>
+        </li>
+        {{ end }}
+    </ul>
 </section>
 {{ end }}

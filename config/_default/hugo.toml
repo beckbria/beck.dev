@@ -2,10 +2,11 @@ baseURL = "https://beck.dev"
 title = "Brian Beck"
 locale = "en"
 defaultContentLanguage = "en"
+relativeURLs = true
 cacheDir = "/src/.hugo_cache/"
+
+theme = "beck"
 
 # Enable JSON output for search functionality
 [outputs]
-home = ["HTML", "RSS", "JSON"]
-
-theme = "beck"
+  home = ["HTML", "RSS", "JSON"]

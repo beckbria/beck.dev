@@ -1,10 +1,16 @@
 {{ define "main" }}
 <article class="max-w-4xl mx-auto">
     <div class="mb-8 rounded overflow-hidden shadow-lg bg-gray-200">
-        <!-- Photo image goes here -->
-        <div class="w-full aspect-video flex items-center justify-center text-gray-500">
-            [High-Res Photo Display]
-        </div>
+        {{ $images := .Resources.ByType "image" }}
+        {{ if $images }}
+            {{ $img := index $images 0 }}
+            {{ $display := $img.Resize "1200x webp" }}
+            <img src="{{ $display.RelPermalink }}" alt="{{ .Title }}" class="w-full h-auto block">
+        {{ else }}
+            <div class="w-full aspect-video flex items-center justify-center text-gray-500">
+                [No Photo Found]
+            </div>
+        {{ end }}
     </div>
     
     <h1 class="text-3xl font-bold mb-2">{{ .Title }}</h1>
