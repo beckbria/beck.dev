@@ -1,0 +1,13 @@
+baseURL = "http://localhost:1313/"
+title = "My Containerized Hugo Blog"
+locale = "en"
+defaultContentLanguage = "en"
+cacheDir = "/src/.hugo_cache/"
+
+# Enable JSON output for search functionality
+[outputs]
+  home = ["HTML", "RSS", "JSON"]
+
+[module]
+  [[module.imports]]
+    path = "github.com/jpanther/congo/v2"

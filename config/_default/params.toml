@@ -1,0 +1,26 @@
+# Core params
+colorScheme = "congo" # Tones available: congo, avocado, cherry, fire, ocean, sapphire, slate
+showBreadcrumbs = true
+
+[author]
+  name = "Jane Doe"
+  bio = "Welcome to my containerized Hugo blog!"
+  image = "profile.png"
+  links = [
+    { github = "https://github.com" },
+    { twitter = "https://twitter.com" },
+    { email = "mailto:jane.doe@example.com" }
+  ]
+
+[homepage]
+  layout = "profile" # Supported options: profile, posts, card, etc.
+  showRecent = true
+  recentLimit = 5
+
+[header]
+  showLogo = true
+
+[footer]
+  showCopyright = true
+  showThemeAttribution = true
+  showScrollToTop = true

@@ -1,0 +1,7 @@
+# Hugo State
+.hugo_cache
+.hugo_build.lock
+
+# Hugo Compiled Output
+public/
+resources/_gen/
