@@ -1,5 +1,5 @@
 ---
-title: "sfo-cruise"
+title: "Crusiing Through the Gate"
 date: 2026-07-05
 tags:
   - "sanfrancisco"

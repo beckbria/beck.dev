@@ -5,6 +5,9 @@
     {{ $style := resources.Get "css/main.css" | resources.Minify }}
     {{ if $style }}
     <link rel="stylesheet" href="{{ $style.RelPermalink }}">
+    {{ end }} {{ block "head" . }}{{ end }}
+    {{ $favicon := resources.Get "images/favicon.svg" }}
+    {{ if $favicon }}
+    <link rel="icon" type="image/svg+xml" href="{{ $favicon.RelPermalink }}" />
     {{ end }}
-    {{ block "head" . }}{{ end }}
 </head>
