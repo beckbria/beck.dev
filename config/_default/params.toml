@@ -3,13 +3,13 @@ colorScheme = "congo" # Tones available: congo, avocado, cherry, fire, ocean, sa
 showBreadcrumbs = true
 
 [author]
-  name = "Jane Doe"
-  bio = "Welcome to my containerized Hugo blog!"
+  name = "Brian Beck"
+  bio = "Site Under Construction"
   image = "profile.png"
   links = [
-    { github = "https://github.com" },
-    { twitter = "https://twitter.com" },
-    { email = "mailto:jane.doe@example.com" }
+    { github = "https://github.com/beckbria" },
+    # { twitter = "https://twitter.com" },
+    # { email = "mailto:jane.doe@example.com" }
   ]
 
 [homepage]

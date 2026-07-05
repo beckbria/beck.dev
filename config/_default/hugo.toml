@@ -1,5 +1,5 @@
-baseURL = "http://localhost:1313/"
-title = "My Containerized Hugo Blog"
+baseURL = "https://beck.dev"
+title = "Signal Fragments"
 locale = "en"
 defaultContentLanguage = "en"
 cacheDir = "/src/.hugo_cache/"

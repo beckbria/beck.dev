@@ -1,60 +1,44 @@
-# Hugo Static Site with Docker & Congo Theme
+# Personal Website
 
-A fully containerized setup for initializing, developing, and building a static blog using [Hugo](https://gohugo.io/) and the premium [Congo](https://github.com/jpanther/congo) theme.
-
-## Features
-
-- **Zero Local Dependencies:** Only requires Docker and Docker Compose. No local installation of Hugo or Go is necessary.
-- **Hugo Extended (v0.128.2):** Built with Hugo Extended which supports Sass/SCSS compilation (required by Congo).
-- **Hugo Modules:** Uses modern Hugo Modules to manage themes, enabling easy theme updates.
-- **Host Output (Extraction):** Built files are compiled directly into the `./public` folder on your host machine for simple deployment.
+This is the code for [my personal website](https://beck.dev). The site is entirely static, generated with [Hugo](https://gohugo.io/).
 
 ---
 
-## Getting Started
+## Development
 
 ### Prerequisites
 
-- **Docker Desktop** installed and running on your system.
+* Install [Docker Engine](https://docs.docker.com/engine/install/)
+* (Optional, **highly recommended**): [Configure Docker to run rootless](https://docs.docker.com/engine/security/rootless/)
 
 ### Running the Site Locally (Development Mode)
 
-To spin up the Hugo development server with live reloading enabled:
+#### WSL / Linux
+```bash
+./run.sh dev
+```
 
-#### Windows (PowerShell)
+#### Windows
 ```powershell
 .\run.ps1 dev
 ```
 
-#### WSL / macOS / Linux / Git Bash
-```bash
-chmod +x run.sh  # Ensure executable permission
-./run.sh dev
-```
-
-The site will be built and served locally. Open your browser and navigate to:
-👉 **[http://localhost:1313/](http://localhost:1313/)**
-
-*Live reload is enabled by default—any edits you make to content or styling will immediately update in your browser.*
+The site will be built and served locally at **[http://localhost:1313/](http://localhost:1313/)**
 
 ---
 
 ## Production Build & File Extraction
 
-To compile your site and generate optimized static files for deployment to a web server (e.g. Netlify, Vercel, Nginx, Apache):
-
-#### Windows (PowerShell)
-```powershell
-.\run.ps1 build
-```
-
-#### WSL / macOS / Linux / Git Bash
+#### WSL / Linux
 ```bash
 ./run.sh build
 ```
 
-This runs the Hugo compiler (`hugo --gc --minify`) inside the Docker container. 
-The generated static site files will be outputted directly to the **`./public/`** folder in your project's root directory on your host machine. You can copy the contents of this folder directly to your hosting provider or server.
+#### Windows
+```powershell
+.\run.ps1 build
+```
+The generated site will be output to the **`./public/`** folder in your project's root directory.
 
 ---
 
@@ -62,16 +46,28 @@ The generated static site files will be outputted directly to the **`./public/`*
 
 ### Cleaning Up Build Output
 To delete the generated `./public/` and `./resources/` folders:
+
+#### WSL / Linux
+```bash
+./run.sh clean
+```
+
+#### Windows
 ```powershell
-.\run.ps1 clean   # Windows (PowerShell)
-./run.sh clean     # WSL / Linux / macOS
+.\run.ps1 clean
 ```
 
 ### Accessing the Container Shell
 If you need to run custom Hugo commands (e.g. `hugo new posts/my-new-post.md`), you can enter the container's interactive bash shell:
+
+#### WSL / Linux
+```bash
+./run.sh shell
+```
+
+#### Windows
 ```powershell
-.\run.ps1 shell   # Windows (PowerShell)
-./run.sh shell     # WSL / Linux / macOS
+.\run.ps1 shell
 ```
 
 ---
