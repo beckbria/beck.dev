@@ -3,7 +3,7 @@
     <div class="photos-main">
         <h1 style="margin-top:0; margin-bottom: 2rem; font-size: 2rem;">{{ .Title }}</h1>
         <div class="photos-grid">
-            {{ range .Pages }}
+            {{ range (where site.RegularPages "Section" "photos") }}
                 {{ $tagsList := "" }}
                 {{ with .Params.tags }}
                     {{ $tagsList = delimit . " " }}
@@ -28,7 +28,7 @@
                 <button class="filter-tag-btn active" data-filter="all">Show All</button>
             </li>
             {{ $photoTags := slice }}
-            {{ range .Pages }}
+            {{ range (where site.RegularPages "Section" "photos") }}
                 {{ with .Params.tags }}
                     {{ range . }}
                         {{ $photoTags = $photoTags | append . }}

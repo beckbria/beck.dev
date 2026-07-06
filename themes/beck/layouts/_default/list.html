@@ -29,11 +29,30 @@
     <aside class="blog-sidebar">
         <h3>Tags</h3>
         <ul class="sidebar-tag-list">
-            {{ range $name, $taxonomy := site.Taxonomies.tags }}
-            <li>
-                <a href="{{ relURL (print "tags/" (urlize $name)) }}">#{{ $name }}</a>
-                <span class="tag-count">({{ len $taxonomy }})</span>
-            </li>
+            {{ $sidebarTags := slice }}
+            {{ $sidebarPages := site.RegularPages }}
+            {{ if ne .Section "" }}
+                {{ $sidebarPages = where site.RegularPages "Section" .Section }}
+            {{ end }}
+            {{ range $sidebarPages }}
+                {{ with .Params.tags }}
+                    {{ range . }}
+                        {{ $sidebarTags = $sidebarTags | append . }}
+                    {{ end }}
+                {{ end }}
+            {{ end }}
+            {{ range ($sidebarTags | uniq | sort) }}
+                {{ $name := . }}
+                {{ $count := 0 }}
+                {{ range $sidebarPages }}
+                    {{ if in .Params.tags $name }}
+                        {{ $count = add $count 1 }}
+                    {{ end }}
+                {{ end }}
+                <li>
+                    <a href="{{ relURL (print "tags/" (urlize $name)) }}">#{{ $name }}</a>
+                    <span class="tag-count">({{ $count }})</span>
+                </li>
             {{ end }}
         </ul>
     </aside>
